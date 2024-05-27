@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Address Autocomplete - Nitin Jangir</title>
+    <meta name="description" content="An address autocomplete tool to easily fill in address information.">
+    <meta name="keywords"
+        content="address autocomplete, address lookup, autocomplete tool, address search, auto fill address">
+    <link rel="canonical" href="https://nitinjangir013.github.io/address-autocomplete">
+    <meta property="og:title" content="Address Autocomplete - Nitin Jangir">
+    <meta property="og:description" content="An address autocomplete tool to easily fill in address information.">
+    <meta property="og:url" content="https://nitinjangir013.github.io/auto-fill-address">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="Nitin Jangir - Address Autocomplete">
+    <meta name="twitter:title" content="Address Autocomplete - Nitin Jangir">
+    <meta name="twitter:description" content="An address autocomplete tool to easily fill in address information.">
+
+    <style>
+        #autocomplete {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <input id="autocomplete" placeholder="Enter your address" type="text" />
+    </div>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAILGVlt-SOiL381JT3TQ9dxxoNIUuxrV8&libraries=places"></script>
+    <script>
+        function initAutocomplete() {
+            const autocomplete = new google.maps.places.Autocomplete(
+                document.getElementById('autocomplete'),
+                { types: ['address'] }
+            );
+            autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+            autocomplete.addListener('place_changed', function () {
+                const place = autocomplete.getPlace();
+
+                if (!place.geometry) {
+                    console.log("No details available for input: '" + place.name + "'");
+                    return;
+                }
+                console.log(place.address_components);
+            });
+        }
+        window.onload = initAutocomplete;
+    </script>
+</body>
+
+</html>
